@@ -41,6 +41,12 @@
         .mini-poster .box { border: 2px dashed #fbcfe8; border-radius: 8px; padding: 8px; margin: 4px 0; min-height: 40px; }
         .timer-display { font-family: 'Fredoka One', cursive; font-size: 2.5rem; color: #7c3aed; }
 
+        /* Single flashcard dot styles */
+        .fc-dot { width: 12px; height: 12px; border-radius: 99px; background: #fde68a; border: 2px solid #f59e0b; cursor: pointer; transition: 0.2s; }
+        .fc-dot:hover { transform: scale(1.2); }
+        .fc-dot.active { background: #f59e0b; transform: scale(1.35); box-shadow: 0 0 0 3px #fef3c7; }
+        .fc-dot.seen { background: #fbbf24; }
+
         /* Grammar Central Card Styles */
         .grammar-central-card {
             background: linear-gradient(145deg, #ffffff, #f5f3ff);
@@ -133,13 +139,12 @@
             </div>
         </div>
 
-                <!-- ========================================================= -->
-                <!-- ========================================================= -->
+        <!-- ========================================================= -->
         <!-- PART 1 – WARM-UP: Flashcard Reveal – 15 min                -->
         <!-- ========================================================= -->
         <section id="part1" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-yellow-400 card-pop">
             <div class="teacher-note">
-                👩‍🏫 <strong>Teacher:</strong> “Welcome back, everyone! Let's start with a quick game. Read the description and the passive sentences. Guess the object. Click the card to reveal the answer!”
+                👩‍🏫 <strong>Teacher:</strong> “Welcome back, everyone! Let's start with a quick game. I will show you ONE flashcard at a time. Read the description and the passive sentences. Guess the object. Then we flip the card to reveal the answer!”
             </div>
             <div class="flex items-center gap-3 mb-4">
                 <span class="text-4xl">🃏</span>
@@ -147,128 +152,61 @@
                 <span class="ml-auto text-sm bg-yellow-100 px-3 py-1 rounded-full font-bold">⏱️ 15 min</span>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <!-- Flashcard 1 -->
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <p class="text-xs font-bold mb-1">You wear this on your head when it is cold.</p>
-                            <p class="text-xs">• It's made of wool.</p>
-                            <p class="text-xs">• It's worn on the head.</p>
-                            <p class="text-xs">• It's used in cold weather.</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="text-4xl">🧢</span>
-                            <p class="text-sm font-bold mt-1">A woolly hat</p>
+            <!-- ========== SINGLE-FLASHCARD VIEWER ========== -->
+            <div class="bg-yellow-50 border-2 border-yellow-200 rounded-3xl p-5 md:p-6">
+                <div class="flex flex-col items-center">
+
+                    <!-- Progress dots -->
+                    <div id="fc-dots" class="flex flex-wrap gap-2 mb-4 justify-center"></div>
+
+                    <!-- Counter + hint -->
+                    <div class="flex items-center justify-between w-full max-w-lg mb-3 gap-2">
+                        <span id="fc-counter" class="text-sm font-bold text-yellow-700 bg-white px-3 py-1 rounded-full border border-yellow-300">Flashcard 1 of 8</span>
+                        <span class="text-xs text-gray-400 font-semibold">👆 Click the card to flip</span>
+                    </div>
+
+                    <!-- The single card -->
+                    <div class="w-full max-w-lg">
+                        <div id="single-flashcard" class="flashcard" onclick="flipFlashcard()">
+                            <div class="flashcard-inner" style="padding-bottom: 78%;">
+                                <!-- FRONT -->
+                                <div class="flashcard-front p-6">
+                                    <span id="fc-number" class="text-[0.7rem] font-extrabold uppercase tracking-widest text-indigo-400 mb-2">Clue 1</span>
+                                    <p id="fc-clue" class="text-lg md:text-xl font-bold leading-snug mb-3">—</p>
+                                    <ul id="fc-hints" class="text-sm md:text-base space-y-1 text-indigo-700 font-semibold"></ul>
+                                </div>
+                                <!-- BACK -->
+                                <div class="flashcard-back">
+                                    <span id="fc-emoji" class="text-6xl md:text-7xl">❓</span>
+                                    <p id="fc-answer" class="text-2xl md:text-3xl font-bold mt-2">—</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Flashcard 2 -->
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <p class="text-xs font-bold mb-1">You wear these on your feet when you walk.</p>
-                            <p class="text-xs">• They're made of leather.</p>
-                            <p class="text-xs">• They're worn on the feet.</p>
-                            <p class="text-xs">• They're used for walking.</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="text-4xl">👟</span>
-                            <p class="text-sm font-bold mt-1">Shoes</p>
-                        </div>
+
+                    <!-- Controls -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 mt-5">
+                        <button id="fc-prev" onclick="prevFlashcard()"
+                                class="bg-white border-2 border-yellow-400 text-yellow-700 px-5 py-2 rounded-full text-sm font-bold hover:bg-yellow-100 transition disabled:opacity-30 disabled:cursor-not-allowed">
+                            ← Previous
+                        </button>
+                        <button onclick="flipFlashcard()"
+                                class="bg-yellow-500 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-yellow-600 transition shadow">
+                            🔄 Flip Card
+                        </button>
+                        <button id="fc-next" onclick="nextFlashcard()"
+                                class="bg-yellow-500 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-yellow-600 transition disabled:opacity-30 disabled:cursor-not-allowed">
+                            Next →
+                        </button>
                     </div>
-                </div>
-                <!-- Flashcard 3 -->
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <p class="text-xs font-bold mb-1">You wear this on your wrist to tell the time.</p>
-                            <p class="text-xs">• It's made of metal.</p>
-                            <p class="text-xs">• It's worn on the wrist.</p>
-                            <p class="text-xs">• It's used to tell the time.</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="text-4xl">⌚</span>
-                            <p class="text-sm font-bold mt-1">A watch</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Flashcard 4 -->
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <p class="text-xs font-bold mb-1">You wear this on your finger as jewelry.</p>
-                            <p class="text-xs">• It's made of gold.</p>
-                            <p class="text-xs">• It's worn on the finger.</p>
-                            <p class="text-xs">• It's used as jewelry.</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="text-4xl">💍</span>
-                            <p class="text-sm font-bold mt-1">A ring</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Flashcard 5 -->
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <p class="text-xs font-bold mb-1">You wear this around your neck to keep warm.</p>
-                            <p class="text-xs">• It's made of wool.</p>
-                            <p class="text-xs">• It's worn around the neck.</p>
-                            <p class="text-xs">• It's used to keep warm.</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="text-4xl">🧣</span>
-                            <p class="text-sm font-bold mt-1">A scarf</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Flashcard 6 -->
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <p class="text-xs font-bold mb-1">You wear this around your waist to hold your trousers.</p>
-                            <p class="text-xs">• It's made of leather.</p>
-                            <p class="text-xs">• It's worn around the waist.</p>
-                            <p class="text-xs">• It's used to hold up trousers.</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="text-4xl">🧵</span>
-                            <p class="text-sm font-bold mt-1">A belt</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Flashcard 7 -->
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <p class="text-xs font-bold mb-1">You wear this on your body when you sleep.</p>
-                            <p class="text-xs">• They're made of cotton.</p>
-                            <p class="text-xs">• They're worn at night.</p>
-                            <p class="text-xs">• They're used for sleeping.</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="text-4xl">🛏️</span>
-                            <p class="text-sm font-bold mt-1">Pyjamas</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Flashcard 8 -->
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <p class="text-xs font-bold mb-1">Kings and queens wear this on their heads.</p>
-                            <p class="text-xs">• It's made of gold.</p>
-                            <p class="text-xs">• It's worn on the head.</p>
-                            <p class="text-xs">• It's worn by kings and queens.</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="text-4xl">👑</span>
-                            <p class="text-sm font-bold mt-1">A crown</p>
-                        </div>
-                    </div>
+
+                    <!-- Status line -->
+                    <p id="fc-status" class="mt-3 text-xs font-semibold text-gray-400">Use the ← → arrow keys to move between cards.</p>
+
+                    <button onclick="resetFlashcards()" class="mt-2 text-xs font-bold text-gray-400 hover:text-yellow-600 underline transition">↺ Back to card 1</button>
                 </div>
             </div>
+            <!-- ========== END SINGLE-FLASHCARD VIEWER ========== -->
 
             <div class="mt-4 bg-yellow-50 p-3 rounded-xl text-sm text-gray-600">
                 <p class="font-bold">💡 Let's notice:</p>
@@ -281,6 +219,7 @@
                 <strong>👩‍🏫 Teacher Transition:</strong> “Great guessing! Now, I have a question. We say 'You wear a hat.' But what if we don't know WHO wears it? Or what if the OBJECT is more important than the person? In English, we can change the sentence to focus on the object. That is called the <strong>PASSIVE VOICE</strong>. Let's learn how it works today!”
             </div>
         </section>
+
         <!-- ========================================================= -->
         <!-- PART 2 – VOCABULARY (20 min) – Page 65, Activity 1          -->
         <!-- ========================================================= -->
@@ -982,6 +921,174 @@
             seconds = 0;
             document.getElementById('timer-display').textContent = '00:00';
         }
+
+        // ===== SINGLE-FLASHCARD VIEWER =====
+        const flashcards = [
+            {
+                clue: "You wear this on your head when it is cold.",
+                hints: ["• It's made of wool.", "• It's worn on the head.", "• It's used in cold weather."],
+                emoji: "🧢",
+                answer: "A woolly hat"
+            },
+            {
+                clue: "You wear these on your feet when you walk.",
+                hints: ["• They're made of leather.", "• They're worn on the feet.", "• They're used for walking."],
+                emoji: "👟",
+                answer: "Shoes"
+            },
+            {
+                clue: "You wear this on your wrist to tell the time.",
+                hints: ["• It's made of metal.", "• It's worn on the wrist.", "• It's used to tell the time."],
+                emoji: "⌚",
+                answer: "A watch"
+            },
+            {
+                clue: "You wear this on your finger as jewelry.",
+                hints: ["• It's made of gold.", "• It's worn on the finger.", "• It's used as jewelry."],
+                emoji: "💍",
+                answer: "A ring"
+            },
+            {
+                clue: "You wear this around your neck to keep warm.",
+                hints: ["• It's made of wool.", "• It's worn around the neck.", "• It's used to keep warm."],
+                emoji: "🧣",
+                answer: "A scarf"
+            },
+            {
+                clue: "You wear this around your waist to hold your trousers.",
+                hints: ["• It's made of leather.", "• It's worn around the waist.", "• It's used to hold up trousers."],
+                emoji: "🧵",
+                answer: "A belt"
+            },
+            {
+                clue: "You wear this on your body when you sleep.",
+                hints: ["• They're made of cotton.", "• They're worn at night.", "• They're used for sleeping."],
+                emoji: "🛏️",
+                answer: "Pyjamas"
+            },
+            {
+                clue: "Kings and queens wear this on their heads.",
+                hints: ["• It's made of gold.", "• It's worn on the head.", "• It's worn by kings and queens."],
+                emoji: "👑",
+                answer: "A crown"
+            }
+        ];
+
+        let currentCardIndex = 0;
+        const seenCards = new Set();
+
+        function renderFlashcard() {
+            const card = flashcards[currentCardIndex];
+            document.getElementById('fc-number').textContent = 'Clue ' + (currentCardIndex + 1);
+            document.getElementById('fc-clue').textContent = card.clue;
+            document.getElementById('fc-emoji').textContent = card.emoji;
+            document.getElementById('fc-answer').textContent = card.answer;
+
+            // Hints
+            const hintsEl = document.getElementById('fc-hints');
+            hintsEl.innerHTML = '';
+            card.hints.forEach(h => {
+                const li = document.createElement('li');
+                li.textContent = h;
+                hintsEl.appendChild(li);
+            });
+
+            // Counter
+            document.getElementById('fc-counter').textContent = 'Flashcard ' + (currentCardIndex + 1) + ' of ' + flashcards.length;
+
+            // Ensure card starts unflipped when we change card
+            document.getElementById('single-flashcard').classList.remove('flipped');
+
+            // Buttons state
+            document.getElementById('fc-prev').disabled = currentCardIndex === 0;
+            document.getElementById('fc-next').disabled = currentCardIndex === flashcards.length - 1;
+
+            // Status
+            seenCards.add(currentCardIndex);
+            updateDots();
+            updateStatus();
+        }
+
+        function updateDots() {
+            const dotsEl = document.getElementById('fc-dots');
+            dotsEl.innerHTML = '';
+            flashcards.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'fc-dot';
+                if (i === currentCardIndex) dot.classList.add('active');
+                else if (seenCards.has(i)) dot.classList.add('seen');
+                dot.title = 'Card ' + (i + 1);
+                dot.onclick = (e) => { e.stopPropagation(); goToCard(i); };
+                dotsEl.appendChild(dot);
+            });
+        }
+
+        function updateStatus() {
+            const statusEl = document.getElementById('fc-status');
+            if (currentCardIndex === flashcards.length - 1 && seenCards.size === flashcards.length) {
+                statusEl.textContent = '🎉 You have seen all ' + flashcards.length + ' cards!';
+            } else {
+                statusEl.textContent = 'Use the ← → arrow keys to move between cards.';
+            }
+        }
+
+        function goToCard(i) {
+            if (i < 0 || i >= flashcards.length) return;
+            currentCardIndex = i;
+            renderFlashcard();
+        }
+
+        function nextFlashcard() {
+            if (currentCardIndex < flashcards.length - 1) {
+                currentCardIndex++;
+                renderFlashcard();
+            }
+        }
+
+        function prevFlashcard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                renderFlashcard();
+            }
+        }
+
+        function flipFlashcard() {
+            document.getElementById('single-flashcard').classList.toggle('flipped');
+        }
+
+        function resetFlashcards() {
+            currentCardIndex = 0;
+            seenCards.clear();
+            renderFlashcard();
+        }
+
+        // Keyboard nav
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                // avoid scrolling the page
+                if (currentCardIndex < flashcards.length - 1) {
+                    e.preventDefault();
+                    nextFlashcard();
+                }
+            } else if (e.key === 'ArrowLeft') {
+                if (currentCardIndex > 0) {
+                    e.preventDefault();
+                    prevFlashcard();
+                }
+            } else if (e.key === ' ' || e.key === 'Enter') {
+                const el = document.activeElement;
+                // Only flip if not typing in an input and focus is body-ish
+                if (!el || el.tagName === 'BODY') {
+                    e.preventDefault();
+                    flipFlashcard();
+                }
+            }
+        });
+
+        // Init on load
+        window.addEventListener('load', () => {
+            renderFlashcard();
+        });
 
         // ===== VOCABULARY ANSWERS =====
         function revealVocabAnswers() {
