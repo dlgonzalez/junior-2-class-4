@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unit 5 – Favourite Fashions (Class 4) | Colombo Americano</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        body { font-family: 'Nunito', sans-serif; background: #f5f3ff; }
+        h1, h2, h3, h4 { font-family: 'Fredoka One', cursive; font-weight: normal; }
+        .teacher-note { border-left: 6px solid #7c3aed; background: #ede9fe; padding: 12px 18px; border-radius: 0 12px 12px 0; margin-bottom: 20px; font-style: italic; color: #5b21b6; font-weight: 600; }
+        .transition-box { border-left: 6px solid #f59e0b; background: #fffbeb; padding: 12px 18px; border-radius: 0 12px 12px 0; margin: 20px 0 30px 0; font-weight: 600; color: #92400e; }
+        .transition-end { border-left: 6px solid #3b82f6; background: #eff6ff; padding: 12px 18px; border-radius: 0 12px 12px 0; margin: 20px 0 10px 0; font-weight: 600; color: #1e40af; }
+        .reveal-btn { cursor: pointer; transition: 0.2s; }
+        .reveal-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .sample-answer { background: #d1fae5; border: 2px solid #10b981; padding: 12px 16px; border-radius: 12px; margin-top: 10px; font-weight: 600; color: #065f46; }
+        .help-phrases { background: #fef3c7; border: 2px solid #f59e0b; padding: 12px 16px; border-radius: 12px; margin-top: 10px; color: #92400e; }
+        .grammar-table { background: #f5f3ff; border: 3px solid #7c3aed; border-radius: 16px; padding: 16px; }
+        .grammar-table td { padding: 8px 12px; border-bottom: 1px solid #ddd; }
+        .grammar-table tr:last-child td { border-bottom: none; }
+        .badge { background: linear-gradient(135deg, #7c3aed, #6d28d9); color: white; padding: 4px 16px; border-radius: 99px; font-weight: 700; font-size: 0.8rem; }
+        .flashcard { cursor: pointer; perspective: 800px; }
+        .flashcard-inner { position: relative; width: 100%; padding-bottom: 90%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 16px; padding: 12px; text-align: center; }
+        .flashcard-front { background: #e0e7ff; border: 3px solid #6366f1; color: #1e1b4b; }
+        .flashcard-back { transform: rotateY(180deg); background: #6366f1; color: white; border: 3px solid #4338ca; }
+        .passive-step { background: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; padding: 12px; margin-bottom: 8px; }
+        .active-sentence { background: #fef2f2; border: 2px solid #ef4444; border-radius: 12px; padding: 12px; }
+        .passive-sentence { background: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; padding: 12px; }
+        .game-card { background: #fdf2f8; border: 2px solid #ec4899; border-radius: 16px; padding: 16px; transition: 0.3s; }
+        .game-card:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(236,72,153,0.2); }
+        .culture-match { cursor: pointer; transition: 0.2s; padding: 10px 16px; border-radius: 12px; border: 2px solid #e5e7eb; background: white; text-align: center; font-weight: 600; }
+        .culture-match:hover { background: #dbeafe; border-color: #3b82f6; }
+        .culture-match.selected { background: #c7d2fe; border-color: #4f46e5; }
+        .culture-match.matched { background: #86efac; border-color: #22c55e; }
+        .poster-section { background: #fdf2f8; border: 3px solid #ec4899; border-radius: 16px; padding: 16px; }
+        .mini-poster { background: white; border: 3px solid #ec4899; border-radius: 16px; padding: 12px; font-size: 0.75rem; }
+        .mini-poster .label { font-weight: 700; color: #9d174d; }
+        .mini-poster .box { border: 2px dashed #fbcfe8; border-radius: 8px; padding: 8px; margin: 4px 0; min-height: 40px; }
+        .timer-display { font-family: 'Fredoka One', cursive; font-size: 2.5rem; color: #7c3aed; }
+
+        /* Grammar Central Card Styles */
+        .grammar-central-card {
+            background: linear-gradient(145deg, #ffffff, #f5f3ff);
+            border: 4px solid #7c3aed;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15);
+            position: relative;
+        }
+        .grammar-sentence-display {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            padding: 20px;
+            background: #faf5ff;
+            border-radius: 16px;
+            border: 3px dashed #c4b5fd;
+            letter-spacing: 1px;
+        }
+        .grammar-sentence-display span {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 8px;
+            margin: 0 2px;
+        }
+        .subject-part { background: #fef3c7; color: #92400e; border-bottom: 4px solid #f59e0b; }
+        .verb-part { background: #dbeafe; color: #1e40af; border-bottom: 4px solid #3b82f6; }
+        .participle-part { background: #dcfce7; color: #166534; border-bottom: 4px solid #22c55e; }
+        .extra-part { background: #fce7f3; color: #9d174d; border-bottom: 4px solid #ec4899; }
+        .arrow-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .arrow-subject { background: #fef3c7; color: #92400e; }
+        .arrow-verb { background: #dbeafe; color: #1e40af; }
+        .arrow-participle { background: #dcfce7; color: #166534; }
+        .arrow-extra { background: #fce7f3; color: #9d174d; }
+        .board-work-item { background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 12px; padding: 12px; margin-bottom: 8px; }
+        .board-work-item:hover { border-color: #7c3aed; background: #f5f3ff; }
+    </style>
+</head>
+<body class="p-4 md:p-8 text-gray-800">
+
+    <!-- ===== HEADER ===== -->
+    <header class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-3xl p-6 md:p-8 text-white shadow-xl mb-8 max-w-6xl mx-auto border-b-8 border-purple-300 relative overflow-hidden">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+            <img src="https://www.colomboamericano.edu.co/wp-content/uploads/2024/06/Logo-Colombo-Horizontal.png" alt="Colombo Americano Cali" class="h-16 md:h-20 object-contain bg-white/10 p-2 rounded-xl backdrop-blur-sm" />
+            <div class="text-right">
+                <p class="text-sm font-bold uppercase tracking-wider text-purple-200">Face‑to‑Face • A2+</p>
+                <p class="text-2xl font-bold">2.5 hours</p>
+            </div>
+        </div>
+        <div class="mt-6 text-center md:text-left relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-white drop-shadow-lg">👗 Unit 5 – Favourite Fashions</h1>
+            <p class="text-xl font-semibold text-purple-100 mt-1">Class 4: Present Passive + Culture + Poster Creation</p>
+        </div>
+        <div class="mt-6 bg-white/20 p-5 rounded-2xl backdrop-blur-sm border border-white/30 relative z-10">
+            <h3 class="text-2xl font-bold text-purple-200 mb-2">🎯 Today's Mission</h3>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-1 text-white font-semibold text-lg">
+                <li>✓ Learn 12 new clothes & accessory words</li>
+                <li>✓ Master the <strong>Present Passive</strong></li>
+                <li>✓ Discover traditional clothes from around the world</li>
+                <li>✓ Create a poster about a traditional outfit</li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto space-y-8">
+
+        <!-- ========================================================= -->
+        <!-- TIMER & NAVIGATION BAR                                     -->
+        <!-- ========================================================= -->
+        <div class="bg-white rounded-2xl shadow-md p-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50 border-b-4 border-purple-400">
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-bold text-gray-500">⏱️</span>
+                <span id="timer-display" class="text-3xl font-bold text-purple-600">00:00</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="startTimer()" class="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-purple-700 transition">▶ Start</button>
+                <button onclick="stopTimer()" class="bg-gray-400 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-500 transition">⏹ Stop</button>
+                <button onclick="resetTimer()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-300 transition">↺ Reset</button>
+            </div>
+            <div class="text-sm text-gray-400">
+                <span class="badge">Part <span id="current-part">1</span>/8</span>
+            </div>
+        </div>
+
+                <!-- ========================================================= -->
+        <!-- PART 1 – WARM-UP: Flashcard Reveal (Active Voice) – 15 min  -->
+        <!-- ========================================================= -->
+        <section id="part1" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-yellow-400 card-pop">
+            <div class="teacher-note">
+                👩‍🏫 <strong>Teacher:</strong> “Welcome back, everyone! Let's start with a quick game. I will read a description. Guess the object. Click the card to reveal the answer and see some example sentences!”
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">🃏</span>
+                <h2 class="text-3xl text-yellow-600">Part 1 – Warm-up: Flashcard Reveal</h2>
+                <span class="ml-auto text-sm bg-yellow-100 px-3 py-1 rounded-full font-bold">⏱️ 15 min</span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Flashcard 1 -->
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-sm font-bold">You wear this on your head when it is cold.</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-sm font-bold mb-1">A woolly hat</p>
+                            <p class="text-xs">• It's made of wool.</p>
+                            <p class="text-xs">• It's worn on the head.</p>
+                            <p class="text-xs">• It's used in cold weather.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flashcard 2 -->
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-sm font-bold">You wear these on your feet when you walk.</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-sm font-bold mb-1">Shoes</p>
+                            <p class="text-xs">• They're made of leather.</p>
+                            <p class="text-xs">• They're worn on the feet.</p>
+                            <p class="text-xs">• They're used for walking.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flashcard 3 -->
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-sm font-bold">You wear this on your wrist to tell the time.</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-sm font-bold mb-1">A watch</p>
+                            <p class="text-xs">• It's made of metal.</p>
+                            <p class="text-xs">• It's worn on the wrist.</p>
+                            <p class="text-xs">• It's used to tell the time.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flashcard 4 -->
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-sm font-bold">You wear this on your finger as jewelry.</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-sm font-bold mb-1">A ring</p>
+                            <p class="text-xs">• It's made of gold.</p>
+                            <p class="text-xs">• It's worn on the finger.</p>
+                            <p class="text-xs">• It's used as jewelry.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flashcard 5 -->
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-sm font-bold">You wear this around your neck to keep warm.</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-sm font-bold mb-1">A scarf</p>
+                            <p class="text-xs">• It's made of wool.</p>
+                            <p class="text-xs">• It's worn around the neck.</p>
+                            <p class="text-xs">• It's used to keep warm.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flashcard 6 -->
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-sm font-bold">You wear this around your waist to hold your trousers.</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-sm font-bold mb-1">A belt</p>
+                            <p class="text-xs">• It's made of leather.</p>
+                            <p class="text-xs">• It's worn around the waist.</p>
+                            <p class="text-xs">• It's used to hold up trousers.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flashcard 7 -->
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-sm font-bold">You wear this on your body when you sleep.</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-sm font-bold mb-1">Pyjamas</p>
+                            <p class="text-xs">• They're made of cotton.</p>
+                            <p class="text-xs">• They're worn at night.</p>
+                            <p class="text-xs">• They're used for sleeping.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flashcard 8 -->
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-sm font-bold">Kings and queens wear this on their heads.</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-sm font-bold mb-1">A crown</p>
+                            <p class="text-xs">• It's made of gold.</p>
+                            <p class="text-xs">• It's worn on the head.</p>
+                            <p class="text-xs">• It's worn by kings and queens.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-yellow-50 p-3 rounded-xl text-sm text-gray-600">
+                <p class="font-bold">💡 Let's notice:</p>
+                <p>We say: <em>"You wear a hat."</em> The person (you) is important.</p>
+                <p class="mt-1">But we can also say: <em>"A hat is worn on the head."</em> The object (hat) is important. That's the <strong>Passive Voice</strong>!</p>
+            </div>
+
+            <!-- Transition End -->
+            <div class="transition-end">
+                <strong>👩‍🏫 Teacher Transition:</strong> “Great guessing! Now, I have a question. We say 'You wear a hat.' But what if we don't know WHO wears it? Or what if the OBJECT is more important than the person? In English, we can change the sentence to focus on the object. That is called the <strong>PASSIVE VOICE</strong>. Let's learn how it works today!”
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PART 2 – VOCABULARY (20 min) – Page 65, Activity 1          -->
+        <!-- ========================================================= -->
+        <section id="part2" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-pink-500 card-pop">
+            <div class="teacher-note">
+                👩‍🏫 <strong>Teacher:</strong> “Let's learn 12 new words for clothes and accessories. Look at the images and match them to the words in your book (page 65, Activity 1).”
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">📚</span>
+                <h2 class="text-3xl text-pink-600">Part 2 – Vocabulary</h2>
+                <span class="ml-auto text-sm bg-pink-100 px-3 py-1 rounded-full font-bold">⏱️ 20 min</span>
+                <span class="text-sm font-bold text-gray-400">📘 p.65, Act.1</span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">🩱</span>
+                    <p class="font-bold text-pink-800 mt-1">leggings</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">🧤</span>
+                    <p class="font-bold text-pink-800 mt-1">gloves</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">💎</span>
+                    <p class="font-bold text-pink-800 mt-1">earrings</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">🧵</span>
+                    <p class="font-bold text-pink-800 mt-1">belt</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">📿</span>
+                    <p class="font-bold text-pink-800 mt-1">bracelet</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">👔</span>
+                    <p class="font-bold text-pink-800 mt-1">tie</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">⌚</span>
+                    <p class="font-bold text-pink-800 mt-1">watch</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">🩱</span>
+                    <p class="font-bold text-pink-800 mt-1">tights</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">👕</span>
+                    <p class="font-bold text-pink-800 mt-1">sweatshirt</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">🧢</span>
+                    <p class="font-bold text-pink-800 mt-1">woolly hat</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">👚</span>
+                    <p class="font-bold text-pink-800 mt-1">top</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-2xl border-2 border-pink-200 text-center">
+                    <span class="text-4xl">👑</span>
+                    <p class="font-bold text-pink-800 mt-1">crown</p>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <p class="font-bold text-gray-700">📝 Book Activity 1:</p>
+                <p class="text-sm text-gray-600">Match the images (1-12) to the correct words. Write your answers in your book.</p>
+                <button onclick="revealVocabAnswers()" class="mt-2 bg-pink-500 text-white px-6 py-2 rounded-full text-sm hover:bg-pink-600 transition">🔍 Reveal Answers</button>
+                <div id="vocab-answers" class="hidden mt-3 p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">
+                    ✅ 1. leggings, 2. gloves, 3. earrings, 4. belt, 5. bracelet, 6. tie, 7. watch, 8. tights, 9. sweatshirt, 10. woolly hat, 11. top, 12. crown
+                </div>
+            </div>
+
+            <!-- Transition End -->
+            <div class="transition-end">
+                <strong>👩‍🏫 Teacher Transition:</strong> “Excellent! Now let's learn how to use the <strong>Present Passive</strong>. This is a very useful structure in English.”
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PART 3 – GRAMMAR: PRESENT PASSIVE (30 min) – p.65, Act.4   -->
+        <!-- ========================================================= -->
+        <section id="part3" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-purple-500 card-pop">
+            <div class="teacher-note">
+                👩‍🏫 <strong>Teacher:</strong> “We use the Present Passive when the action or the object is more important than the person who does the action. Let's look at this sentence together.”
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">📐</span>
+                <h2 class="text-3xl text-purple-600">Part 3 – Grammar: Present Passive</h2>
+                <span class="ml-auto text-sm bg-purple-100 px-3 py-1 rounded-full font-bold">⏱️ 30 min</span>
+                <span class="text-sm font-bold text-gray-400">📘 p.65, Act.4</span>
+            </div>
+
+            <!-- GRAPHICAL GRAMMAR CENTRAL CARD -->
+            <div class="grammar-central-card mb-8">
+                <h3 class="text-center text-2xl font-bold text-purple-700 mb-4">🔍 Look at this sentence:</h3>
+
+                <!-- Central Sentence Display -->
+                <div class="grammar-sentence-display">
+                    <span class="subject-part">The crown</span>
+                    <span class="verb-part">is</span>
+                    <span class="participle-part">made</span>
+                    <span class="extra-part">of gold.</span>
+                </div>
+
+                <!-- Arrows and Explanations -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                    <div class="text-center">
+                        <div class="text-3xl text-yellow-500 mb-1">↓</div>
+                        <div class="arrow-label arrow-subject">SUBJECT</div>
+                        <p class="text-xs text-gray-600 mt-1">The object we are talking about (the crown).</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl text-blue-500 mb-1">↓</div>
+                        <div class="arrow-label arrow-verb">VERB "BE"</div>
+                        <p class="text-xs text-gray-600 mt-1">Use <strong>is / are / am</strong> depending on the subject.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl text-green-500 mb-1">↓</div>
+                        <div class="arrow-label arrow-participle">PAST PARTICIPLE</div>
+                        <p class="text-xs text-gray-600 mt-1">The main verb in past participle form (<em>made, worn, used, called</em>).</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl text-pink-500 mb-1">↓</div>
+                        <div class="arrow-label arrow-extra">EXTRA INFO</div>
+                        <p class="text-xs text-gray-600 mt-1">More information: <em>of gold, by princesses, to make dresses</em>.</p>
+                    </div>
+                </div>
+
+                <!-- Formula -->
+                <div class="mt-6 p-4 bg-purple-100 rounded-2xl text-center">
+                    <p class="text-lg font-bold text-purple-800">📐 The Formula:</p>
+                    <p class="text-2xl font-bold text-purple-700 mt-1">SUBJECT + <span class="text-blue-600">BE</span> + <span class="text-green-600">PAST PARTICIPLE</span> + <span class="text-pink-600">EXTRA INFO</span></p>
+                </div>
+            </div>
+
+            <!-- Step 1: Notice the Difference -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-purple-800 mb-3">🔍 Step 1: Notice the Difference</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="active-sentence">
+                        <p class="font-bold text-red-600">Active Voice:</p>
+                        <p class="text-gray-700">People <strong>make</strong> these shoes <strong>in Italy</strong>.</p>
+                        <p class="text-gray-700 mt-1">Someone <strong>uses</strong> cotton <strong>to make</strong> T-shirts.</p>
+                        <p class="text-gray-700 mt-1">Princesses <strong>wear</strong> silk dresses.</p>
+                    </div>
+                    <div class="passive-sentence">
+                        <p class="font-bold text-green-600">Passive Voice:</p>
+                        <p class="text-gray-700">These shoes <strong>are made</strong> in Italy.</p>
+                        <p class="text-gray-700 mt-1">Cotton <strong>is used</strong> to make T-shirts.</p>
+                        <p class="text-gray-700 mt-1">Silk dresses <strong>are worn</strong> by princesses.</p>
+                    </div>
+                </div>
+                <p class="mt-3 text-gray-600"><strong>Ask:</strong> What is different? Who is the focus in each sentence?</p>
+                <p class="text-gray-600"><strong>Explain:</strong> In the active voice, the person who does the action is important. In the passive voice, the <strong>action</strong> or the <strong>object</strong> is more important.</p>
+            </div>
+
+            <!-- Step 2: More Examples -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-purple-800 mb-3">📊 Step 2: More Examples</h3>
+                <div class="grammar-table">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-purple-200 text-purple-800">
+                                <th class="p-3 rounded-l-xl">Subject</th>
+                                <th class="p-3">Verb (be)</th>
+                                <th class="p-3">Past Participle</th>
+                                <th class="p-3 rounded-r-xl">Extra Information</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            <tr><td class="p-3 border-b">It</td><td class="p-3 border-b">is</td><td class="p-3 border-b font-bold text-purple-700">called</td><td class="p-3 border-b">silk.</td></tr>
+                            <tr><td class="p-3 border-b">They</td><td class="p-3 border-b">are</td><td class="p-3 border-b font-bold text-purple-700">made of</td><td class="p-3 border-b">leather.</td></tr>
+                            <tr><td class="p-3 border-b">It</td><td class="p-3 border-b">is</td><td class="p-3 border-b font-bold text-purple-700">used to</td><td class="p-3 border-b">make dresses.</td></tr>
+                            <tr><td class="p-3 border-b">It</td><td class="p-3 border-b">is</td><td class="p-3 border-b font-bold text-purple-700">used for</td><td class="p-3 border-b">making dresses.</td></tr>
+                            <tr><td class="p-3 border-b">They</td><td class="p-3 border-b">are</td><td class="p-3 border-b font-bold text-purple-700">worn by</td><td class="p-3 border-b">princesses.</td></tr>
+                            <tr><td class="p-3 border-b">The book</td><td class="p-3 border-b">is</td><td class="p-3 border-b font-bold text-purple-700">made of</td><td class="p-3 border-b">paper.</td></tr>
+                            <tr><td class="p-3">Cotton</td><td class="p-3">is</td><td class="p-3 font-bold text-purple-700">grown</td><td class="p-3">in Colombia.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
+                        <p class="font-bold text-purple-700">Rule 1:</p>
+                        <p>We make the Present Passive with the present tense of the verb <strong>be</strong> (am / is / are) + <strong>past participle</strong> (called, made, used, worn).</p>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
+                        <p class="font-bold text-purple-700">Rule 2:</p>
+                        <p>We use the Present Passive when the <strong>action</strong> is more important than the person who does the action.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: How to Form the Passive -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-purple-800 mb-3">🔧 Step 3: How to Form the Passive</h3>
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <div class="passive-step">
+                        <p class="font-bold text-green-700">Step 1:</p>
+                        <p>The <strong>object</strong> of the active sentence becomes the <strong>subject</strong> of the passive sentence.</p>
+                    </div>
+                    <div class="passive-step">
+                        <p class="font-bold text-green-700">Step 2:</p>
+                        <p>Add the correct form of <strong>be</strong> (am / is / are).</p>
+                    </div>
+                    <div class="passive-step">
+                        <p class="font-bold text-green-700">Step 3:</p>
+                        <p>Add the <strong>past participle</strong> of the main verb.</p>
+                    </div>
+                    <div class="passive-step">
+                        <p class="font-bold text-green-700">Step 4:</p>
+                        <p>If needed, add <strong>by + person</strong> at the end.</p>
+                    </div>
+                </div>
+                <div class="mt-3 bg-white p-4 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-700">Example:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                        <div class="bg-red-50 p-3 rounded-xl">
+                            <p class="text-sm font-bold text-red-600">Active:</p>
+                            <p>People <strong>make</strong> jeans <strong>in many countries</strong>.</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-xl">
+                            <p class="text-sm font-bold text-green-600">Passive:</p>
+                            <p>Jeans <strong>are made</strong> in many countries.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Guided Practice (Book Activity 4) -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-purple-800 mb-3">📝 Step 4: Complete the Rules (p.65, Act.4)</h3>
+                <div class="bg-purple-50 p-4 rounded-xl border-2 border-purple-200">
+                    <p>1. We make the Present Passive with the present tense of the verb <strong>be / have</strong> and a past participle.</p>
+                    <p class="mt-2">2. We use the Present Passive when the action is <strong>more / less</strong> important than the person who does the action.</p>
+                    <button onclick="revealRulesAnswers()" class="mt-3 bg-purple-500 text-white px-6 py-2 rounded-full text-sm hover:bg-purple-600 transition">🔍 Reveal Answers</button>
+                    <div id="rules-answers" class="hidden mt-3 p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">
+                        ✅ 1. <strong>be</strong><br>
+                        ✅ 2. <strong>more</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Board Work – More Exercises! -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-purple-800 mb-3">✏️ Step 5: Board Work – Come to the Board!</h3>
+                <p class="text-gray-600">I will call you to the board. Write the passive form of the sentence. The class helps!</p>
+
+                <div class="space-y-2 mt-3">
+                    <div class="board-work-item flex justify-between items-center">
+                        <span>1. People make jeans in many countries.</span>
+                        <button onclick="revealPassive(1)" class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs hover:bg-purple-600 transition">🔍</button>
+                    </div>
+                    <div id="passive-1" class="hidden p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">✅ Jeans are made in many countries.</div>
+
+                    <div class="board-work-item flex justify-between items-center">
+                        <span>2. Princesses wear silk dresses.</span>
+                        <button onclick="revealPassive(2)" class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs hover:bg-purple-600 transition">🔍</button>
+                    </div>
+                    <div id="passive-2" class="hidden p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">✅ Silk dresses are worn by princesses.</div>
+
+                    <div class="board-work-item flex justify-between items-center">
+                        <span>3. They sell clothes in the town.</span>
+                        <button onclick="revealPassive(3)" class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs hover:bg-purple-600 transition">🔍</button>
+                    </div>
+                    <div id="passive-3" class="hidden p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">✅ Clothes are sold in the town.</div>
+
+                    <div class="board-work-item flex justify-between items-center">
+                        <span>4. People play football in the square.</span>
+                        <button onclick="revealPassive(4)" class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs hover:bg-purple-600 transition">🔍</button>
+                    </div>
+                    <div id="passive-4" class="hidden p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">✅ Football is played in the square.</div>
+
+                    <div class="board-work-item flex justify-between items-center">
+                        <span>5. Workers pick the cotton.</span>
+                        <button onclick="revealPassive(5)" class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs hover:bg-purple-600 transition">🔍</button>
+                    </div>
+                    <div id="passive-5" class="hidden p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">✅ The cotton is picked by workers.</div>
+
+                    <div class="board-work-item flex justify-between items-center">
+                        <span>6. People grow cotton in Colombia.</span>
+                        <button onclick="revealPassive(6)" class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs hover:bg-purple-600 transition">🔍</button>
+                    </div>
+                    <div id="passive-6" class="hidden p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">✅ Cotton is grown in Colombia.</div>
+
+                    <div class="board-work-item flex justify-between items-center">
+                        <span>7. Someone cleans the cotton.</span>
+                        <button onclick="revealPassive(7)" class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs hover:bg-purple-600 transition">🔍</button>
+                    </div>
+                    <div id="passive-7" class="hidden p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">✅ The cotton is cleaned.</div>
+
+                    <div class="board-work-item flex justify-between items-center">
+                        <span>8. People use leather to make shoes.</span>
+                        <button onclick="revealPassive(8)" class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs hover:bg-purple-600 transition">🔍</button>
+                    </div>
+                    <div id="passive-8" class="hidden p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">✅ Leather is used to make shoes.</div>
+                </div>
+            </div>
+
+            <!-- Step 6: Passive Voice Game – "Transform It!" -->
+            <div>
+                <h3 class="text-xl font-bold text-purple-800 mb-3">🎮 Step 6: Game – Transform It!</h3>
+                <div class="game-card">
+                    <p class="text-gray-700">I will show an active sentence. You have 10 seconds to write the passive form on your whiteboard. Then I will reveal the answer!</p>
+                    <div class="mt-3 bg-white p-4 rounded-xl shadow-inner text-center min-h-[80px] flex items-center justify-center">
+                        <p id="game-sentence" class="text-2xl font-bold text-gray-800">Click "Next Sentence" to start!</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-3 justify-center">
+                        <button onclick="nextGameSentence()" class="bg-purple-600 text-white px-6 py-2 rounded-full text-sm hover:bg-purple-700 transition">🔄 Next Sentence</button>
+                        <button onclick="revealGameAnswer()" class="bg-green-500 text-white px-6 py-2 rounded-full text-sm hover:bg-green-600 transition">🔍 Reveal Answer</button>
+                    </div>
+                    <div id="game-answer" class="mt-3 text-center text-lg font-bold text-green-600 min-h-[30px]"></div>
+                </div>
+            </div>
+
+            <!-- Transition End -->
+            <div class="transition-end">
+                <strong>👩‍🏫 Teacher Transition:</strong> “Excellent work! Now let's go back to the fairy tale and see the Present Passive in the story.”
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PART 4 – BOOK CLUB REVIEW (20 min) – p.65, Act.2 & 3       -->
+        <!-- ========================================================= -->
+        <section id="part4" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-blue-500 card-pop">
+            <div class="teacher-note">
+                👩‍🏫 <strong>Teacher:</strong> “Open your books to page 65. Let's look at the fairy tale again. How many clothes can you find?”
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">📖</span>
+                <h2 class="text-3xl text-blue-600">Part 4 – Book Club Review</h2>
+                <span class="ml-auto text-sm bg-blue-100 px-3 py-1 rounded-full font-bold">⏱️ 20 min</span>
+                <span class="text-sm font-bold text-gray-400">📘 p.65, Act.2 & 3</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Clothes in the story -->
+                <div class="bg-blue-50 p-5 rounded-2xl border-2 border-blue-200">
+                    <h3 class="font-bold text-blue-800 text-lg">👗 Activity 2: Clothes in the Story</h3>
+                    <p class="text-gray-600 text-sm mt-1">Look at the fairy tale (page 64). How many clothes can you find?</p>
+                    <button onclick="revealClothesInStory()" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition w-full">🔍 Reveal Answers</button>
+                    <div id="clothes-story" class="hidden mt-3 p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">
+                        ✅ crown, dress, coat, bracelets, shoes, leggings, sweatshirt, hat, trainers
+                    </div>
+                </div>
+
+                <!-- Matching activity -->
+                <div class="bg-green-50 p-5 rounded-2xl border-2 border-green-200">
+                    <h3 class="font-bold text-green-800 text-lg">🔗 Activity 3: Matching</h3>
+                    <p class="text-gray-600 text-sm mt-1">Match the items with their descriptions.</p>
+                    <div class="grid grid-cols-2 gap-2 mt-3 text-sm">
+                        <div class="bg-white p-2 rounded-lg text-center font-bold">1. The crown</div>
+                        <div class="bg-white p-2 rounded-lg text-center font-bold">2. Silk dresses</div>
+                        <div class="bg-white p-2 rounded-lg text-center font-bold">3. Clothes</div>
+                        <div class="bg-white p-2 rounded-lg text-center font-bold">4. The shopkeeper</div>
+                        <div class="bg-white p-2 rounded-lg text-center font-bold">5. Football</div>
+                    </div>
+                    <button onclick="revealMatchingAnswers()" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition w-full">🔍 Reveal Answers</button>
+                    <div id="matching-answers" class="hidden mt-3 p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">
+                        ✅ 1. d – is made of gold.<br>
+                        ✅ 2. e – are worn by princesses.<br>
+                        ✅ 3. a – are sold in the town.<br>
+                        ✅ 4. b – is given the silk dress.<br>
+                        ✅ 5. c – is played in the square.
+                    </div>
+                </div>
+
+                <!-- Identify the Passive -->
+                <div class="bg-purple-50 p-5 rounded-2xl border-2 border-purple-200 md:col-span-2">
+                    <h3 class="font-bold text-purple-800 text-lg">🔍 Identify the Passive</h3>
+                    <p class="text-gray-600 text-sm mt-1">Which sentences in the matching activity are passive? Circle them in your book.</p>
+                    <button onclick="revealPassiveSentences()" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded-full text-sm hover:bg-purple-600 transition w-full">🔍 Reveal Answers</button>
+                    <div id="passive-sentences" class="hidden mt-3 p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">
+                        ✅ All of them! The crown <strong>is made of</strong> gold. Silk dresses <strong>are worn by</strong> princesses. Clothes <strong>are sold</strong> in the town. The shopkeeper <strong>is given</strong> the silk dress. Football <strong>is played</strong> in the square.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transition End -->
+            <div class="transition-end">
+                <strong>👩‍🏫 Teacher Transition:</strong> “Now let's listen to a podcast about how cotton clothes are made.”
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PART 5 – LISTENING & SPEAKING (20 min) – p.65, Act.5 & 6   -->
+        <!-- ========================================================= -->
+        <section id="part5" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-rose-500 card-pop">
+            <div class="teacher-note">
+                👩‍🏫 <strong>Teacher:</strong> “Listen to a podcast about cotton. Write 4 sentences about how cotton clothes are made. Use the verbs: pick, clean, make, send.”
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">🎧</span>
+                <h2 class="text-3xl text-rose-600">Part 5 – Listening & Speaking</h2>
+                <span class="ml-auto text-sm bg-rose-100 px-3 py-1 rounded-full font-bold">⏱️ 20 min</span>
+                <span class="text-sm font-bold text-gray-400">📘 p.65, Act.5 & 6</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Listening -->
+                <div class="bg-rose-50 p-5 rounded-2xl border-2 border-rose-200">
+                    <h3 class="font-bold text-rose-800 text-lg">🎧 Activity 5: Podcast about Cotton</h3>
+                    <p class="text-gray-600 text-sm mt-1">Listen and write 4 sentences about how cotton clothes are made.</p>
+                    <div class="mt-3 bg-white p-3 rounded-xl text-sm text-gray-600">
+                        <p class="font-bold">📝 Pre-listening: Think about these words:</p>
+                        <p>• <strong>pick</strong> = to take from the plant</p>
+                        <p>• <strong>clean</strong> = to remove dirt</p>
+                        <p>• <strong>make</strong> = to create fabric</p>
+                        <p>• <strong>send</strong> = to transport to shops</p>
+                    </div>
+                    <button onclick="revealListeningSample()" class="mt-3 bg-rose-500 text-white px-4 py-2 rounded-full text-sm hover:bg-rose-600 transition w-full">🔍 Sample Answers (Check after listening)</button>
+                    <div id="listening-sample" class="hidden mt-3 p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">
+                        ✅ 1. The cotton is picked by workers.<br>
+                        ✅ 2. The cotton is cleaned.<br>
+                        ✅ 3. The cotton is made into fabric.<br>
+                        ✅ 4. The clothes are sent to shops.
+                    </div>
+                    <div class="help-phrases mt-3">
+                        <p class="font-bold">💬 Help Phrases:</p>
+                        <p>"First, cotton is...", "Then, it is...", "Finally, clothes are..."</p>
+                    </div>
+                </div>
+
+                <!-- Speaking -->
+                <div class="bg-blue-50 p-5 rounded-2xl border-2 border-blue-200">
+                    <h3 class="font-bold text-blue-800 text-lg">💬 Activity 6: Speaking</h3>
+                    <p class="text-gray-600 text-sm mt-1">Talk to your classmates. Answer these questions:</p>
+                    <ul class="space-y-2 text-gray-700 mt-3">
+                        <li>1. What are your shoes made of?</li>
+                        <li>2. Do you have any clothes that are made of cotton?</li>
+                        <li>3. What's this book made of?</li>
+                    </ul>
+                    <div class="mt-3 bg-white p-3 rounded-xl text-sm text-gray-600">
+                        <p class="font-bold">💡 Sample Answers:</p>
+                        <p>1. "My shoes are made of leather."</p>
+                        <p>2. "Yes, my T-shirt is made of cotton."</p>
+                        <p>3. "This book is made of paper."</p>
+                    </div>
+                    <div class="help-phrases mt-3">
+                        <p class="font-bold">💬 Help Phrases:</p>
+                        <p>"It is made of...", "They are made of...", "I have a... that is made of...", "The... is made of..."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transition End -->
+            <div class="transition-end">
+                <strong>👩‍🏫 Teacher Transition:</strong> “Now let's practice more with a crossword in your workbook.”
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PART 6 – WORKBOOK EXTENSION (15 min) – Workbook p.58       -->
+        <!-- ========================================================= -->
+        <section id="part6" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-teal-500 card-pop">
+            <div class="teacher-note">
+                👩‍🏫 <strong>Teacher:</strong> “Open your workbook to page 58. Complete the crossword individually. Then, in groups, compare your answers.”
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">📝</span>
+                <h2 class="text-3xl text-teal-600">Part 6 – Workbook Extension</h2>
+                <span class="ml-auto text-sm bg-teal-100 px-3 py-1 rounded-full font-bold">⏱️ 15 min</span>
+                <span class="text-sm font-bold text-gray-400">📘 Workbook p.58</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-teal-50 p-5 rounded-2xl border-2 border-teal-200">
+                    <h3 class="font-bold text-teal-800 text-lg">📝 Step 1: Individual Work</h3>
+                    <p class="text-gray-600 text-sm mt-1">Complete the crossword on page 58 of your workbook. Use the vocabulary from this lesson.</p>
+                    <p class="text-sm text-gray-500 mt-2">⏱️ 7 minutes</p>
+                </div>
+
+                <div class="bg-blue-50 p-5 rounded-2xl border-2 border-blue-200">
+                    <h3 class="font-bold text-blue-800 text-lg">👫 Step 2: Group Check</h3>
+                    <p class="text-gray-600 text-sm mt-1">In groups of 3-4, compare your answers. Discuss any differences.</p>
+                    <p class="text-sm text-gray-500 mt-2">⏱️ 4 minutes</p>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <h3 class="font-bold text-gray-700">🔍 Step 3: Reveal Answers</h3>
+                <button onclick="revealCrosswordAnswers()" class="mt-2 bg-teal-500 text-white px-6 py-2 rounded-full text-sm hover:bg-teal-600 transition">🔍 Reveal Answers</button>
+                <div id="crossword-answers" class="hidden mt-3 p-3 bg-green-100 rounded-xl text-sm font-semibold text-green-700">
+                    ✅ (Crossword answers will appear here – use the workbook answer key)
+                </div>
+            </div>
+
+            <div class="mt-4 bg-purple-50 p-4 rounded-xl border-2 border-purple-200">
+                <h3 class="font-bold text-purple-800">💬 Step 4: Speaking Extension</h3>
+                <p class="text-gray-600 text-sm mt-1">In groups, each student chooses 3 words from the crossword and makes a sentence using the Present Passive. Share with your group.</p>
+                <div class="help-phrases mt-2">
+                    <p class="font-bold">💬 Help Phrases:</p>
+                    <p>"A crown is made of gold.", "A scarf is worn around the neck.", "Shoes are made of leather."</p>
+                </div>
+            </div>
+
+            <!-- Transition End -->
+            <div class="transition-end">
+                <strong>👩‍🏫 Teacher Transition:</strong> “Now let's learn about traditional clothes around the world.”
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PART 7 – CULTURE: TRADITIONAL CLOTHES (15 min) – Lesson 6  -->
+        <!-- ========================================================= -->
+        <section id="part7" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-indigo-500 card-pop">
+            <div class="teacher-note">
+                👩‍🏫 <strong>Teacher:</strong> “Open your books to Lesson 6 – Culture. Let's read about traditional clothes around the world. Then we'll play a game!”
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">🌍</span>
+                <h2 class="text-3xl text-indigo-600">Part 7 – Culture: Traditional Clothes</h2>
+                <span class="ml-auto text-sm bg-indigo-100 px-3 py-1 rounded-full font-bold">⏱️ 15 min</span>
+                <span class="text-sm font-bold text-gray-400">📘 Lesson 6</span>
+            </div>
+
+            <div class="bg-indigo-50 p-5 rounded-2xl border-2 border-indigo-200 mb-6">
+                <p class="text-gray-700 text-center py-4">
+                    📖 <strong>Reading Text:</strong> Please refer to Lesson 6 – Culture in your book.<br>
+                    <span class="text-sm text-gray-500">(Reading text and comprehension questions will be added here.)</span>
+                </p>
+            </div>
+
+            <!-- Game: Match the Country to the Outfit -->
+            <div class="bg-purple-50 p-5 rounded-2xl border-2 border-purple-200">
+                <h3 class="font-bold text-purple-800 text-lg">🎮 Game: Match the Country to the Outfit</h3>
+                <p class="text-gray-600 text-sm mt-1">Click a country on the left, then click the correct outfit on the right.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="space-y-3">
+                        <div class="culture-match" data-pair="1" onclick="selectCultureMatch(this)">🇯🇵 Japan</div>
+                        <div class="culture-match" data-pair="2" onclick="selectCultureMatch(this)">🇮🇳 India</div>
+                        <div class="culture-match" data-pair="3" onclick="selectCultureMatch(this)">🇲🇽 Mexico</div>
+                        <div class="culture-match" data-pair="4" onclick="selectCultureMatch(this)">🇬🇧 Scotland</div>
+                        <div class="culture-match" data-pair="5" onclick="selectCultureMatch(this)">🇨🇴 Colombia</div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="culture-match" data-pair="3" onclick="selectCultureMatch(this)">Sombrero & poncho</div>
+                        <div class="culture-match" data-pair="5" onclick="selectCultureMatch(this)">La Pollera</div>
+                        <div class="culture-match" data-pair="4" onclick="selectCultureMatch(this)">Kilt</div>
+                        <div class="culture-match" data-pair="1" onclick="selectCultureMatch(this)">Kimono</div>
+                        <div class="culture-match" data-pair="2" onclick="selectCultureMatch(this)">Sari</div>
+                    </div>
+                </div>
+                <div id="culture-result" class="mt-4 text-center text-xl font-bold"></div>
+                <button onclick="resetCultureMatch()" class="mt-2 bg-gray-400 text-white px-4 py-1 rounded-full text-sm hover:bg-gray-500 transition">Reset 🔄</button>
+            </div>
+
+            <!-- Transition End -->
+            <div class="transition-end">
+                <strong>👩‍🏫 Teacher Transition:</strong> “Now it's your turn to be creative! You will create a poster about a traditional outfit from Colombia.”
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PART 8 – POSTER CREATION & PRESENTATION (20 min)           -->
+        <!-- ========================================================= -->
+        <section id="part8" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-t-8 border-rose-500 card-pop">
+            <div class="teacher-note">
+                👩‍🏫 <strong>Teacher:</strong> “In pairs, you will create a poster about a traditional outfit from Colombia. Then, you will design a new outfit for your region or city. Follow the steps carefully!”
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">🎨</span>
+                <h2 class="text-3xl text-rose-600">Part 8 – Poster Creation</h2>
+                <span class="ml-auto text-sm bg-rose-100 px-3 py-1 rounded-full font-bold">⏱️ 20 min</span>
+            </div>
+
+            <!-- Instructions -->
+            <div class="poster-section mb-6">
+                <h3 class="font-bold text-rose-700 text-lg mb-2">📋 Instructions</h3>
+                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                    <li><strong>Draw</strong> a traditional outfit from Colombia (or your region).</li>
+                    <li><strong>Write the history</strong> (2-3 sentences): Where does it come from? When is it worn? Why is it important?</li>
+                    <li><strong>Describe it</strong> (5-6 sentences) using the Present Passive: What is it made of? Who wears it? What is it used for? What colors does it have?</li>
+                    <li><strong>Draw a new outfit</strong> for your region or city (3-4 sentences): What is it made of? Who wears it? What is it used for? Why do you like it?</li>
+                    <li><strong>Present</strong> your poster to another pair or to the class.</li>
+                </ol>
+            </div>
+
+            <!-- Miniature Poster Template -->
+            <div class="mb-6">
+                <h3 class="font-bold text-rose-700 text-lg mb-2">🖼️ Miniature Poster Template</h3>
+                <div class="mini-poster">
+                    <div class="label">TRADITIONAL OUTFIT FROM: _____________________________</div>
+                    <div class="grid grid-cols-2 gap-3 mt-2">
+                        <div class="box">
+                            <p class="text-center text-gray-400">[DRAW HERE]</p>
+                            <p class="text-center text-gray-400">Traditional Outfit</p>
+                        </div>
+                        <div>
+                            <div class="box">
+                                <p class="label">📜 HISTORY:</p>
+                                <p class="text-gray-500">• It comes from...</p>
+                                <p class="text-gray-500">• It is worn during...</p>
+                                <p class="text-gray-500">• It is important because...</p>
+                            </div>
+                            <div class="box">
+                                <p class="label">📝 DESCRIPTION:</p>
+                                <p class="text-gray-500">• It is made of...</p>
+                                <p class="text-gray-500">• It is worn by...</p>
+                                <p class="text-gray-500">• It is used for...</p>
+                                <p class="text-gray-500">• The colors are...</p>
+                                <p class="text-gray-500">• It has...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label mt-3">NEW OUTFIT FOR: _____________________________</div>
+                    <div class="grid grid-cols-2 gap-3 mt-2">
+                        <div class="box">
+                            <p class="text-center text-gray-400">[DRAW HERE]</p>
+                            <p class="text-center text-gray-400">New Outfit</p>
+                        </div>
+                        <div class="box">
+                            <p class="label">📝 DESCRIPTION:</p>
+                            <p class="text-gray-500">• It is made of...</p>
+                            <p class="text-gray-500">• It is worn by...</p>
+                            <p class="text-gray-500">• It is used for...</p>
+                            <p class="text-gray-500">• We like it because...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Answer -->
+            <div class="bg-green-50 p-5 rounded-2xl border-2 border-green-200 mb-6">
+                <h3 class="font-bold text-green-800 text-lg">📝 Sample Answer</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <p class="font-bold text-green-700">Traditional Outfit: La Pollera</p>
+                        <p class="text-sm text-gray-600"><strong>History:</strong> La Pollera comes from the Caribbean coast of Colombia. It is worn during traditional festivals like the Carnival of Barranquilla. It is important because it represents Colombian culture and history.</p>
+                        <p class="text-sm text-gray-600 mt-1"><strong>Description:</strong> La Pollera is made of cotton and lace. It is worn by women. It is used for dancing and celebrations. The colors are usually white, red, and yellow. It has many patterns and flowers.</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-green-700">New Outfit: The Future Caleño</p>
+                        <p class="text-sm text-gray-600"><strong>Description:</strong> Our new outfit is for the city of Cali. It is made of light cotton for the hot weather. It has a bright yellow T-shirt with a salsa design. The shorts are blue and comfortable. It is worn by young people at the Feria de Cali. We like it because it is modern and fun.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Phrases -->
+            <div class="help-phrases">
+                <p class="font-bold">💬 Help Phrases for Your Poster & Presentation:</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2 text-sm">
+                    <div>
+                        <p class="font-bold">Describing Traditional Outfits:</p>
+                        <p>"It is made of...", "It is worn by...", "It is used for...", "The colors are...", "It has...", "People wear it in..."</p>
+                    </div>
+                    <div>
+                        <p class="font-bold">Describing New Outfits:</p>
+                        <p>"It is made of...", "It is worn by...", "It is used for...", "We designed it for...", "We like it because..."</p>
+                    </div>
+                    <div>
+                        <p class="font-bold">Presenting:</p>
+                        <p>"Our outfit is called...", "It is made of...", "It is worn by...", "We like it because...", "Thank you for listening!"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transition End -->
+            <div class="transition-end">
+                <strong>👩‍🏫 Teacher Transition:</strong> “Fantastic work, everyone! You have created beautiful posters and practiced the Present Passive. Next class, we will continue with Lesson 6 and learn more about traditional clothes around the world. Don't forget to finish your posters if you haven't! See you next time!” 👋
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="max-w-6xl mx-auto mt-12 text-center text-sm text-gray-400 border-t pt-6">
+        <p>Colombo Americano Cali – Unit 5: Favourite Fashions • Class 4</p>
+        <p class="mt-1">Face‑to‑face • A2+ • 2.5 hours • Pages 65, 58 (Workbook), Lesson 6</p>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // ===== TIMER =====
+        let timerInterval;
+        let seconds = 0;
+        let isRunning = false;
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerInterval = setInterval(() => {
+                seconds++;
+                const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+                const secs = String(seconds % 60).padStart(2, '0');
+                document.getElementById('timer-display').textContent = mins + ':' + secs;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            seconds = 0;
+            document.getElementById('timer-display').textContent = '00:00';
+        }
+
+        // ===== VOCABULARY ANSWERS =====
+        function revealVocabAnswers() {
+            document.getElementById('vocab-answers').classList.remove('hidden');
+        }
+
+        // ===== GRAMMAR ANSWERS =====
+        function revealRulesAnswers() {
+            document.getElementById('rules-answers').classList.remove('hidden');
+        }
+
+        function revealPassive(id) {
+            document.getElementById('passive-' + id).classList.remove('hidden');
+        }
+
+        // ===== PASSIVE VOICE GAME =====
+        const gameSentences = [
+            { active: "People grow cotton in Colombia.", passive: "Cotton is grown in Colombia." },
+            { active: "Workers pick the cotton.", passive: "The cotton is picked by workers." },
+            { active: "People use leather to make shoes.", passive: "Leather is used to make shoes." },
+            { active: "Someone makes these shirts in India.", passive: "These shirts are made in India." },
+            { active: "People sell clothes in the market.", passive: "Clothes are sold in the market." },
+            { active: "They play football in the square.", passive: "Football is played in the square." },
+            { active: "People clean the cotton.", passive: "The cotton is cleaned." },
+            { active: "Someone sends the clothes to shops.", passive: "The clothes are sent to shops." },
+            { active: "People make fabric from cotton.", passive: "Fabric is made from cotton." },
+            { active: "They use silk to make dresses.", passive: "Silk is used to make dresses." }
+        ];
+        let currentGameIndex = 0;
+
+        function nextGameSentence() {
+            currentGameIndex = Math.floor(Math.random() * gameSentences.length);
+            document.getElementById('game-sentence').textContent = gameSentences[currentGameIndex].active;
+            document.getElementById('game-answer').textContent = '';
+        }
+
+        function revealGameAnswer() {
+            document.getElementById('game-answer').textContent = '✅ ' + gameSentences[currentGameIndex].passive;
+        }
+
+        // ===== BOOK CLUB ANSWERS =====
+        function revealClothesInStory() {
+            document.getElementById('clothes-story').classList.remove('hidden');
+        }
+
+        function revealMatchingAnswers() {
+            document.getElementById('matching-answers').classList.remove('hidden');
+        }
+
+        function revealPassiveSentences() {
+            document.getElementById('passive-sentences').classList.remove('hidden');
+        }
+
+        // ===== LISTENING ANSWER =====
+        function revealListeningSample() {
+            document.getElementById('listening-sample').classList.remove('hidden');
+        }
+
+        // ===== CROSSWORD ANSWER =====
+        function revealCrosswordAnswers() {
+            document.getElementById('crossword-answers').classList.remove('hidden');
+        }
+
+        // ===== CULTURE MATCHING GAME =====
+        let selectedCulture = null;
+        let matchedCulturePairs = [];
+
+        function selectCultureMatch(el) {
+            const pair = el.dataset.pair;
+            if (el.classList.contains('matched')) return;
+
+            document.querySelectorAll('.culture-match.selected').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+
+            if (selectedCulture && selectedCulture !== el) {
+                if (selectedCulture.dataset.pair === pair) {
+                    selectedCulture.classList.remove('selected');
+                    el.classList.remove('selected');
+                    selectedCulture.classList.add('matched');
+                    el.classList.add('matched');
+                    document.getElementById('culture-result').innerHTML = '✅ Correct match!';
+                    matchedCulturePairs.push(pair);
+                    if (matchedCulturePairs.length === 5) {
+                        document.getElementById('culture-result').innerHTML = '🎉 You matched all of them! Perfect!';
+                    }
+                    selectedCulture = null;
+                } else {
+                    document.getElementById('culture-result').innerHTML = '❌ Not a match. Try again!';
+                    selectedCulture.classList.remove('selected');
+                    el.classList.remove('selected');
+                    selectedCulture = null;
+                }
+            } else {
+                selectedCulture = el;
+            }
+        }
+
+        function resetCultureMatch() {
+            document.querySelectorAll('.culture-match').forEach(el => {
+                el.classList.remove('selected', 'matched');
+            });
+            matchedCulturePairs = [];
+            selectedCulture = null;
+            document.getElementById('culture-result').innerHTML = '';
+        }
+
+        // ===== UPDATE PART NUMBER =====
+        function updatePart() {
+            const parts = document.querySelectorAll('section[id^="part"]');
+            let currentPart = 1;
+            parts.forEach((part, index) => {
+                const rect = part.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2) {
+                    currentPart = index + 1;
+                }
+            });
+            document.getElementById('current-part').textContent = currentPart;
+        }
+
+        window.addEventListener('scroll', updatePart);
+        window.addEventListener('load', updatePart);
+    </script>
+
+</body>
+</html>
